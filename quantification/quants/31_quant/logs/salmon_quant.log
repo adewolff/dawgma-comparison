@@ -1,0 +1,58 @@
+[2018-04-10 21:12:25.411] [jointLog] [info] parsing read library format
+[2018-04-10 21:12:25.411] [jointLog] [info] There is 1 library.
+[2018-04-10 21:12:48.175] [jointLog] [info] parsing read library format
+[2018-04-10 21:12:48.175] [jointLog] [info] There is 1 library.
+[2018-04-10 21:13:47.152] [jointLog] [info] parsing read library format
+[2018-04-10 21:13:47.152] [jointLog] [info] There is 1 library.
+[2018-04-10 21:28:27.319] [jointLog] [info] parsing read library format
+[2018-04-10 21:28:27.319] [jointLog] [info] There is 1 library.
+[2018-04-10 21:28:27.356] [jointLog] [info] Loading Quasi index
+[2018-04-10 21:28:27.356] [jointLog] [info] Loading 32-bit quasi index
+[2018-04-10 21:28:28.996] [jointLog] [info] done
+[2018-04-10 21:28:28.996] [jointLog] [info] Index contained 48268 targets
+[2018-04-10 21:28:29.290] [jointLog] [warning] Fragment GC bias correction is currently *experimental* in single-end libraries.  Please use this option with caution.
+[2018-04-10 21:28:29.489] [jointLog] [info] Automatically detected most likely library type as SR
+[2018-04-10 21:29:38.126] [fileLog] [info] 
+At end of round 0
+==================
+Observed 25633278 total fragments (25633278 in most recent round)
+
+[2018-04-10 21:29:38.125] [jointLog] [info] Computed 50372 rich equivalence classes for further processing
+[2018-04-10 21:29:38.125] [jointLog] [info] Counted 21696042 total reads in the equivalence classes 
+[2018-04-10 21:29:38.128] [jointLog] [info] Mapping rate = 84.6401%
+
+[2018-04-10 21:29:38.128] [jointLog] [info] finished quantifyLibrary()
+[2018-04-10 21:29:38.128] [jointLog] [info] Starting optimizer
+[2018-04-10 21:29:38.146] [jointLog] [info] Marked 0 weighted equivalence classes as degenerate
+[2018-04-10 21:29:38.147] [jointLog] [info] iteration = 0 | max rel diff. = 224.343
+[2018-04-10 21:29:38.169] [jointLog] [info] iteration 11, adjusting effective lengths to account for biases
+[2018-04-10 21:30:18.996] [jointLog] [info] Computed expected counts (for bias correction)
+[2018-04-10 21:30:18.996] [jointLog] [info] processed bias for 0.0% of the transcripts
+[2018-04-10 21:30:22.290] [jointLog] [info] processed bias for 10.0% of the transcripts
+[2018-04-10 21:30:25.938] [jointLog] [info] processed bias for 20.0% of the transcripts
+[2018-04-10 21:30:29.631] [jointLog] [info] processed bias for 30.0% of the transcripts
+[2018-04-10 21:30:33.088] [jointLog] [info] processed bias for 40.0% of the transcripts
+[2018-04-10 21:30:36.635] [jointLog] [info] processed bias for 50.0% of the transcripts
+[2018-04-10 21:30:39.976] [jointLog] [info] processed bias for 60.0% of the transcripts
+[2018-04-10 21:30:43.050] [jointLog] [info] processed bias for 70.0% of the transcripts
+[2018-04-10 21:30:46.668] [jointLog] [info] processed bias for 80.0% of the transcripts
+[2018-04-10 21:30:49.740] [jointLog] [info] processed bias for 100.0% of the transcripts
+[2018-04-10 21:30:49.814] [jointLog] [info] iteration = 100 | max rel diff. = 0.114694
+[2018-04-10 21:30:49.901] [jointLog] [info] iteration = 200 | max rel diff. = 0.0599532
+[2018-04-10 21:30:49.986] [jointLog] [info] iteration = 300 | max rel diff. = 0.0398188
+[2018-04-10 21:30:50.069] [jointLog] [info] iteration = 400 | max rel diff. = 0.0377169
+[2018-04-10 21:30:50.152] [jointLog] [info] iteration = 500 | max rel diff. = 0.0274361
+[2018-04-10 21:30:50.237] [jointLog] [info] iteration = 600 | max rel diff. = 0.0196117
+[2018-04-10 21:30:50.322] [jointLog] [info] iteration = 700 | max rel diff. = 0.0166735
+[2018-04-10 21:30:50.405] [jointLog] [info] iteration = 800 | max rel diff. = 0.0155403
+[2018-04-10 21:30:50.493] [jointLog] [info] iteration = 900 | max rel diff. = 0.013433
+[2018-04-10 21:30:50.579] [jointLog] [info] iteration = 1000 | max rel diff. = 0.0110054
+[2018-04-10 21:30:50.663] [jointLog] [info] iteration = 1100 | max rel diff. = 0.0110055
+[2018-04-10 21:30:50.707] [jointLog] [info] iteration = 1153 | max rel diff. = 0.00944206
+[2018-04-10 21:30:50.709] [jointLog] [info] Finished optimizer
+[2018-04-10 21:30:50.709] [jointLog] [info] writing output 
+
+[2018-04-10 21:30:50.764] [jointLog] [warning] NOTE: Read Lib [reads/DRR016131_1.fastq.gz, reads/DRR016131_2.fastq.gz] :
+
+Greater than 5% of the fragments disagreed with the provided library type; check the file: quants/31_quant/lib_format_counts.json for details
+
