@@ -1,0 +1,2 @@
+quant files: https://www.ebi.ac.uk/ena/data/view/PRJDB2508
+reference transcriptome: https://plants.ensembl.org/info/website/ftp/index.html , https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FGenes%2FTAIR10_genome_release
