@@ -1,0 +1,17 @@
+Name	Length	EffectiveLength	TPM	NumReads
+25_quant a a a a
+26_quant a a a a
+27_quant a a a a
+28_quant a a a a
+29_quant a a a a
+30_quant a a a a
+31_quant a a a a
+32_quant a a a a
+33_quant a a a a
+34_quant a a a a
+35_quant a a a a
+36_quant a a a a
+37_quant a a a a
+38_quant a a a a
+39_quant a a a a
+40_quant a a a a
