@@ -6,10 +6,10 @@ library("dplyr")
 library("ggplot2")
 library("calibrate")
 
-dir <- "/home/fjhuyan/dawgma-comparison/quantification"
+dir <- "C:/Users/Wolfy/Documents/school/dawgma/dawgma-comparison/quantification"
 samples <- read.table(file.path(dir, "samples.txt"), header = TRUE)
 rownames(samples) <- samples$run
-files <- file.path(dir, "quants", samples$run, "quant.sf")
+files <- file.path(dir, "quants", samples$Name, "quant.sf")
 names(files) <- paste0(samples$run)
 all(file.exists(files))
 
