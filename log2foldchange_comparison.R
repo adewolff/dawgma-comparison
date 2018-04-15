@@ -8,7 +8,7 @@ library("calibrate")
 
 dir <- "C:/Users/Wolfy/Documents/school/dawgma/dawgma-comparison/quantification"
 samples <- read.table(file.path(dir, "samples.txt"), header = TRUE)
-rownames(samples) <- samples$run
+rownames(samples) <- samples$Name
 files <- file.path(dir, "quants", samples$Name, "quant.sf")
 names(files) <- paste0(samples$run)
 all(file.exists(files))
