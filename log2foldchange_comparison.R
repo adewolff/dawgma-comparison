@@ -6,7 +6,7 @@ library("dplyr")
 library("ggplot2")
 library("calibrate")
 
-dir <- "quantification"
+dir <- "/home/fjhuyan/dawgma-comparison/quantification"
 samples <- read.table(file.path(dir, "samples.txt"), header = TRUE)
 rownames(samples) <- samples$Name
 files <- file.path(dir, "quants", samples$Name, "quant.sf")
@@ -19,7 +19,7 @@ names(txi.tx)
 
 dds <- DESeqDataSetFromTximport(txi.tx,
                                 colData = samples,
-                                design = ~ 1)
+                                design = ~ condition)
 nrow(dds)
 dds <- dds[ rowSums(counts(dds)) > 1, ]
 nrow(dds)
