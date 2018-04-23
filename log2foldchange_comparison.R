@@ -1,11 +1,11 @@
 library("tximport")
 library("readr")
+library("ensembldb")
 library("DESeq2")
 library("vsn")
 library("dplyr")
 library("ggplot2")
 library("calibrate")
-library("ensembldb")
 
 
 # Ensembledb loading of gene annotation
@@ -16,7 +16,7 @@ DB <- ensDbFromGtf(gtf = gtffile)
 # Load DB file 
 EDB <- EnsDb(DB)
 # Convert DB file to data frame containing transcript info
-tx <- transcripts(EDB, return.type = "DataFrame")
+tx2gene <- transcripts(EDB, return.type = "DataFrame")
 
 dir <- "quantification"
 samples <- read.table(file.path(dir, "samples.txt"), header = TRUE)
@@ -25,7 +25,7 @@ files <- file.path(dir, "quants", samples$Name, "quant.sf")
 names(files) <- paste0(samples$Name)
 all(file.exists(files))
 
-txi.tx <- tximport(files, type = "salmon", txOut = TRUE)
+txi.tx <- tximport(files, type = "salmon", tx2gene = tx2gene)
 names(txi.tx)
 # head(txi.tx$counts)
 
@@ -38,7 +38,7 @@ dds <- dds[ rowSums(counts(dds)) > 1, ]
 nrow(dds)
 
 
-dds <- DESeq(dds)
+dds <- DESeq(dds, fitType = "mean")
 res <- results(dds)
 
 plotMA(res, ylim = c(-5, 5))
