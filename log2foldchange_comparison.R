@@ -5,6 +5,18 @@ library("vsn")
 library("dplyr")
 library("ggplot2")
 library("calibrate")
+library("ensembldb")
+
+
+# Ensembledb loading of gene annotation
+# points to gtf file
+gtffile <- "quantification/Arabidopsis_thaliana.GRCh37.27.gtf"
+# Generate SQLite database file
+DB <- ensDbFromGtf(gtf = gtffile)
+# Load DB file 
+EDB <- EnsDb(DB)
+# Convert DB file to data frame containing transcript info
+tx <- transcripts(EDB, return.type = "DataFrame")
 
 dir <- "quantification"
 samples <- read.table(file.path(dir, "samples.txt"), header = TRUE)
