@@ -6,39 +6,49 @@ library("dplyr")
 library("ggplot2")
 library("calibrate")
 
+# tximport pipeline -------------------------------------------------------
 
 # get tx2gene file using ensembledb
 source("lib/gene_annotation.R")
 
+# point tximport to location of quant files
 dir <- "quantification"
 samples <- read.table(file.path(dir, "samples.txt"), header = TRUE)
 rownames(samples) <- samples$Name
 files <- file.path(dir, "quants", samples$Name, "quant.sf")
 names(files) <- paste0(samples$Name)
-all(file.exists(files))
+# all(file.exists(files))
 
-txi.tx <- tximport(files, type = "salmon", tx2gene = tx2gene, 
+# Run tximport function on quant files
+txi_tx <- tximport(files, type = "salmon", tx2gene = tx2gene,
                    txIdCol = "tx_id", geneIdCol = "gene_id")
-names(txi.tx)
-head(txi.tx$counts)
+# names(txi_tx)
+# head(txi_tx$counts)
 
-dds <- DESeqDataSetFromTximport(txi.tx,
+
+# Diff expr ---------------------------------------------------------------
+
+dds <- DESeqDataSetFromTximport(txi_tx,
   colData = samples,
   design = ~ condition
 )
 nrow(dds)
-dds <- dds[ rowSums(counts(dds)) > 1, ]
+dds <- dds[rowSums(counts(dds)) > 1, ]
 nrow(dds)
 
 
 dds <- DESeq(dds, fitType = "mean")
 res <- results(dds)
 
+
+# plotting ----------------------------------------------------------------
+
+
 plotMA(res, ylim = c(-5, 5))
-topGene <- rownames(res)[which.min(res$padj)]
-with(res[topGene, ], {
+top_gene <- rownames(res)[which.min(res$padj)]
+with(res[top_gene, ], {
   points(baseMean, log2FoldChange, col = "dodgerblue", cex = 2, lwd = 2)
-  text(baseMean, log2FoldChange, topGene, pos = 2, col = "dodgerblue")
+  text(baseMean, log2FoldChange, top_gene, pos = 2, col = "dodgerblue")
 })
 
 # Make a basic volcano plot
