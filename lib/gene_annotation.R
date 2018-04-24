@@ -3,7 +3,11 @@
 
 # Ensembledb loading of gene annotation
 # points to gtf file
-gtffile <- "quantification/gene_annotation/Arabidopsis_thaliana.TAIR10.39.gtf.gz"
+if(length(Sys.glob("quantification/gene_annotation/*.gtf.gz")) > 0){
+  gtffile <- Sys.glob("quantification/gene_annotation/*.gtf.gz")
+} else if(length(Sys.glob("quantification/gene_annotation/*.gtf")) > 0){
+  gtffile <- Sys.glob("quantification/gene_annotation/*.gtf")
+}
 # Generate SQLite database file
 DB <- ensDbFromGtf(gtf = gtffile)
 # Load DB file 
