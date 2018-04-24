@@ -1,3 +1,4 @@
+library("ensembldb")
 library("tximport")
 library("readr")
 library("DESeq2")
@@ -9,7 +10,16 @@ library("calibrate")
 # tximport pipeline -------------------------------------------------------
 
 # get tx2gene file using ensembledb
-source("lib/gene_annotation.R")
+if(file.exists("./Arabidopsis_thaliana.TAIR10.39.sqlite")){
+  # load sqlite file
+  EDB <- EnsDb("./Arabidopsis_thaliana.TAIR10.39.sqlite")
+  # Convert DB file to data frame containing transcript info
+  tx2gene <- data.frame(transcripts(EDB, return.type = "DataFrame"))
+  tx2gene <- dplyr::select(tx2gene, tx_name, gene_id)
+} else{
+  # if sqlite file not present in root, source("lib/gene_annotation.R") instead
+  source("lib/gene_annotation.R")
+}
 
 # point tximport to location of quant files
 dir <- "quantification"
@@ -17,13 +27,13 @@ samples <- read.table(file.path(dir, "samples.txt"), header = TRUE)
 rownames(samples) <- samples$Name
 files <- file.path(dir, "quants", samples$Name, "quant.sf")
 names(files) <- paste0(samples$Name)
-# all(file.exists(files))
+all(file.exists(files))
 
 # Run tximport function on quant files
 txi_tx <- tximport(files, type = "salmon", tx2gene = tx2gene,
                    txIdCol = "tx_id", geneIdCol = "gene_id")
-# names(txi_tx)
-# head(txi_tx$counts)
+names(txi_tx)
+head(txi_tx$counts)
 
 
 # Diff expr ---------------------------------------------------------------

@@ -1,7 +1,5 @@
-library("ensembldb")
-library("readr")
-library("dplyr")
-
+# gtf file location: 
+# ftp://ftp.ensemblgenomes.org/pub/plants/release-39/gtf/arabidopsis_thaliana/
 
 # Ensembledb loading of gene annotation
 # points to gtf file
