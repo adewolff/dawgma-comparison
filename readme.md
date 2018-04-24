@@ -7,6 +7,8 @@ their rna seq results.
 2. Put gene annotation .gtf file or sqlite file in gene_annotation directory
 3. Put samples.txt file in root directory.
 4. Open log2foldchange_comparison.R
+    - Set working directory to source file
+    (Session>Set working directory>To Source File Location)
     - On Line 27 modify file.path to correspond to naming convention of quant
   files and their directories (or uphold xx_quant/quant.sf structure).
     - Ensure tx2gene vector in log2log2foldchange_comparison.R(line 18) and

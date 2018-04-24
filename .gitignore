@@ -3,3 +3,4 @@ quantification/
 *.sqlite
 *.gtf
 *.gtf.gz
+quants/*/
