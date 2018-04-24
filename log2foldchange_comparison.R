@@ -15,7 +15,7 @@ if(length(Sys.glob("gene_annotation/*.sqlite")) > 0){
   EDB <- EnsDb(Sys.glob("gene_annotation/*.sqlite"))
   # Convert DB file to data frame containing transcript info
   tx2gene <- data.frame(transcripts(EDB, return.type = "DataFrame"))
-  tx2gene <- dplyr::select(tx2gene, tx_name, gene_id)
+  tx2gene <- dplyr::select(tx2gene, tx_id, gene_id)
 } else{
   # if sqlite file not present in root, source("lib/gene_annotation.R") instead
   source("lib/gene_annotation.R")
