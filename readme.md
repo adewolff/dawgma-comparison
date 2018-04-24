@@ -17,10 +17,10 @@ their rna seq results.
 5. Source log2foldchange_comparison.R
 
 
-##FAQ
+## FAQ
 #### Where do I obtain a "gene annotation .gf file?"
 ```
-Go [here](ftp://ftp.ensemblgenomes.org/pub/), and select a release. Which
+Go here: ftp://ftp.ensemblgenomes.org/pub/, and select a release. Which
 release you pick doesn't matter. However, keep note of which release you use, as
 this is important for experiment reproducibility. If you're unsure of which
 release to pick, pick the latest. From here, navigate to the kingdom in which
