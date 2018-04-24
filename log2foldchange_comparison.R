@@ -10,7 +10,7 @@ library("calibrate")
 
 # Ensembledb loading of gene annotation
 # points to gtf file
-gtffile <- "quantification/Arabidopsis_thaliana.GRCh37.27.gtf"
+gtffile <- "quantification/gene_annotation/Arabidopsis_thaliana.TAIR10.39.gtf.gz"
 # Generate SQLite database file
 DB <- ensDbFromGtf(gtf = gtffile)
 # Load DB file 
@@ -27,7 +27,7 @@ all(file.exists(files))
 
 txi.tx <- tximport(files, type = "salmon", tx2gene = tx2gene)
 names(txi.tx)
-# head(txi.tx$counts)
+head(txi.tx$counts)
 
 dds <- DESeqDataSetFromTximport(txi.tx,
   colData = samples,
