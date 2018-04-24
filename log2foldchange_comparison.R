@@ -10,9 +10,9 @@ library("calibrate")
 # tximport pipeline -------------------------------------------------------
 
 # get tx2gene file using ensembledb
-if(file.exists("./Arabidopsis_thaliana.TAIR10.39.sqlite")){
+if(length(Sys.glob("gene_annotation/*.sqlite")) > 0){
   # load sqlite file
-  EDB <- EnsDb("./Arabidopsis_thaliana.TAIR10.39.sqlite")
+  EDB <- EnsDb(Sys.glob("gene_annotation/*.sqlite"))
   # Convert DB file to data frame containing transcript info
   tx2gene <- data.frame(transcripts(EDB, return.type = "DataFrame"))
   tx2gene <- dplyr::select(tx2gene, tx_name, gene_id)
@@ -22,10 +22,9 @@ if(file.exists("./Arabidopsis_thaliana.TAIR10.39.sqlite")){
 }
 
 # point tximport to location of quant files
-dir <- "quantification"
-samples <- read.table(file.path(dir, "samples.txt"), header = TRUE)
+samples <- read.table("samples.txt", header = TRUE)
 rownames(samples) <- samples$Name
-files <- file.path(dir, "quants", samples$Name, "quant.sf")
+files <- file.path("quants", samples$Name, "quant.sf")
 names(files) <- paste0(samples$Name)
 all(file.exists(files))
 
