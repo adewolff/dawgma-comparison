@@ -5,3 +5,4 @@ quantification/Genes
 *.sqlite
 *.gtf
 *.gtf.gz
+quantification/samples_old.txt

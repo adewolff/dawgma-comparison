@@ -16,7 +16,8 @@ DB <- ensDbFromGtf(gtf = gtffile)
 # Load DB file 
 EDB <- EnsDb(DB)
 # Convert DB file to data frame containing transcript info
-tx2gene <- transcripts(EDB, return.type = "DataFrame")
+tx2gene <- data.frame(transcripts(EDB, return.type = "DataFrame"))
+tx2gene <- dplyr::select(tx2gene, tx_name, gene_id)
 
 dir <- "quantification"
 samples <- read.table(file.path(dir, "samples.txt"), header = TRUE)
@@ -25,7 +26,8 @@ files <- file.path(dir, "quants", samples$Name, "quant.sf")
 names(files) <- paste0(samples$Name)
 all(file.exists(files))
 
-txi.tx <- tximport(files, type = "salmon", tx2gene = tx2gene)
+txi.tx <- tximport(files, type = "salmon", tx2gene = tx2gene, 
+                   txIdCol = "tx_id", geneIdCol = "gene_id")
 names(txi.tx)
 head(txi.tx$counts)
 
