@@ -2,7 +2,7 @@
 
 RNA-SEQ analysis of [European Nucleotide Archive's PRJDB2508 study](https://www.ebi.ac.uk/ena/data/view/PRJDB2508).
 
-##How to use R code for analyzing rna seq data:
+## How to use R code for analyzing rna seq data:
 1. Put quantification files in quantification/quants
 2. Put gene annotation gtf file in quantification/gene_annotation and/or ensure
 sqlite database file is present in root.
@@ -16,7 +16,7 @@ sqlite database file is present in root.
   (Name by default)
 
 
-##quantification directory
+## quantification directory
 This directory contains all files related to quantification.
 
 - index.sh indexes the *Arabidopsis thaliana* reference transcript
