@@ -3,13 +3,13 @@
 
 # Ensembledb loading of gene annotation
 # points to gtf file
-if(length(Sys.glob("quantification/gene_annotation/*.gtf.gz")) > 0){
-  gtffile <- Sys.glob("quantification/gene_annotation/*.gtf.gz")
-} else if(length(Sys.glob("quantification/gene_annotation/*.gtf")) > 0){
-  gtffile <- Sys.glob("quantification/gene_annotation/*.gtf")
+if(file.exists(Sys.glob("gene_annotation/*.gtf.gz"))){
+  gtffile <- Sys.glob("gene_annotation/*.gtf.gz")
+} else if(file.exists(Sys.glob("gene_annotation/*.gtf"))){
+  gtffile <- Sys.glob("gene_annotation/*.gtf")
 }
 # Generate SQLite database file
-DB <- ensDbFromGtf(gtf = gtffile)
+DB <- ensDbFromGtf(gtf = gtffile, path = "gene_annotation")
 # Load DB file 
 EDB <- EnsDb(DB)
 # Convert DB file to data frame containing transcript info

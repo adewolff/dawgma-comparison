@@ -1,8 +1,5 @@
-/quantification/reads/
-/quantification/athal_index
+quantification/
 *.Rhistory
-quantification/Genes
 *.sqlite
 *.gtf
 *.gtf.gz
-quantification/samples_old.txt
