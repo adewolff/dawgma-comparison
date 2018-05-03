@@ -15,7 +15,9 @@ if(length(Sys.glob("gene_annotation/*.sqlite")) > 0){
   EDB <- EnsDb(Sys.glob("gene_annotation/*.sqlite"))
   # Convert DB file to data frame containing transcript info
   tx2gene <- data.frame(transcripts(EDB, return.type = "DataFrame"))
-  tx2gene <- dplyr::select(tx2gene, tx_id, gene_id)
+  tx2gene <- dplyr::select(tx2gene, tx_id, gene_id, tx_biotype, tx_seq_start,
+                           tx_seq_end, tx_cds_seq_start, tx_cds_seq_end,
+                           tx_name)
 } else{
   # if sqlite file not present in root, source("lib/gene_annotation.R") instead
   source("lib/gene_annotation.R")
@@ -29,8 +31,7 @@ names(files) <- paste0(samples$Name)
 all(file.exists(files))
 
 # Run tximport function on quant files
-txi_tx <- tximport(files, type = "salmon", tx2gene = tx2gene,
-                   txIdCol = "tx_id", geneIdCol = "gene_id")
+txi_tx <- tximport(files, type = "salmon", tx2gene = tx2gene)
 names(txi_tx)
 head(txi_tx$counts)
 
