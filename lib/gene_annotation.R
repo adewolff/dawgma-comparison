@@ -3,9 +3,9 @@
 
 # Ensembledb loading of gene annotation
 # points to gtf file
-if(file.exists(Sys.glob("gene_annotation/*.gtf.gz"))){
+if(length(Sys.glob("gene_annotation/*.gtf.gz")) > 0){
   gtffile <- Sys.glob("gene_annotation/*.gtf.gz")
-} else if(file.exists(Sys.glob("gene_annotation/*.gtf"))){
+} else if(length(Sys.glob("gene_annotation/*.gtf")) > 0){
   gtffile <- Sys.glob("gene_annotation/*.gtf")
 }
 # Generate SQLite database file
