@@ -7,6 +7,9 @@ library("dplyr")
 library("ggplot2")
 library("calibrate")
 library("IHW")
+library('BiocParallel')
+register(MulticoreParam(4))
+
 
 # tximport pipeline -------------------------------------------------------
 
@@ -41,8 +44,8 @@ head(txi_tx$counts)
 
 # Convert tximport data to DESeqDataSet
 dds <- DESeqDataSetFromTximport(txi_tx,
-  colData = samples,
-  design = ~ condition
+                                colData = samples,
+                                design = ~ condition
 )
 
 # Filter counts with low reads
@@ -51,11 +54,14 @@ dds <- dds[rowSums(counts(dds)) >= 10, ]
 nrow(dds)
 
 # Run DESeq analysis
-dds <- DESeq(dds, fitType = "parametric")
-res <- results(dds)
+dds <- DESeq(dds, fitType = "parametric",
+             parallel = T, BPPARAM=MulticoreParam(4))
+res <- results(dds,
+               parallel = T, BPPARAM=MulticoreParam(4))
 
 # Shrink LFC estimates
-resLFC <- lfcShrink(dds, coef = paste0(resultsNames(dds)[2]), type = "apeglm")
+resLFC <- lfcShrink(dds, coef = paste0(resultsNames(dds)[2]), type = "apeglm",
+                    parallel = T, BPPARAM=MulticoreParam(4))
 
 # Order results by smallest p-val
 res_ordered <-res[order(res$pvalue), ]

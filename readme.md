@@ -1,3 +1,5 @@
+# THIS BRANCH UTILIZES PARALLELIZATION WHEN AVAILABLE. USABILITY ON ALL SYSTEMS NOT GUARANTEED. IF YOU DON'T KNOW WHAT THIS MEANS PLEASE USE MASTER BRANCH. 
+
 # DAWGMA RNA-seq Differential expression analysis
 This program allows DAWGMA members to run a Differential expression analysis of
 their rna seq results.
