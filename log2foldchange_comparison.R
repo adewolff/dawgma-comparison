@@ -39,6 +39,7 @@ head(txi_tx$counts)
 
 # Diff expr ---------------------------------------------------------------
 
+# Convert tximport data to DESeqDataSet
 dds <- DESeqDataSetFromTximport(txi_tx,
   colData = samples,
   design = ~ condition
@@ -49,55 +50,50 @@ nrow(dds)
 dds <- dds[rowSums(counts(dds)) >= 10, ]
 nrow(dds)
 
-dds <- DESeq(dds, fitType = "mean")
+# Run DESeq analysis
+dds <- DESeq(dds, fitType = "parametric")
 res <- results(dds)
 
-# shrink LFC estimates
+# Shrink LFC estimates
 resLFC <- lfcShrink(dds, coef = paste0(resultsNames(dds)[2]), type = "apeglm")
 
-# order results by smallest p-val
+# Order results by smallest p-val
 res_ordered <-res[order(res$pvalue), ]
 
 # Perform independent hypothesis weighting
 resIHW <- results(dds, filterFun=ihw)
 
+# Put resLFC in form of normal dataframe for ggplot2
+resnorm <- data.frame(gene_id = rownames(resLFC),
+                      base_mean = resLFC$baseMean,
+                      log2_fold_change = resLFC$log2FoldChange,
+                      lfc_se = resLFC$lfcSE,
+                      pvalue = resLFC$pvalue,
+                      padj = resLFC$padj)
+
+
 # plotting ----------------------------------------------------------------
 
-
-plotMA(res, ylim = c(-5, 5))
+# Create MA plot of shrunken results
+plotMA(resLFC, ylim = c(-12, 12))
 top_gene <- rownames(res)[which.min(res$padj)]
 with(res[top_gene, ], {
   points(baseMean, log2FoldChange, col = "dodgerblue", cex = 2, lwd = 2)
   text(baseMean, log2FoldChange, top_gene, pos = 2, col = "dodgerblue")
 })
 
-# Make a basic volcano plot
-with(res, plot(log2FoldChange, -log10(pvalue),
-  pch = 20, main = "Volcano plot",
-  xlim = c(-10, 10), ylim = c(0, 3)
-))
-
-# Colors
-with(subset(res, padj < .05), points(log2FoldChange, -log10(pvalue),
-  pch = 20,
-  col = "red"
-))
-with(
-  subset(res, abs(log2FoldChange) > 1),
-  points(log2FoldChange, -log10(pvalue), pch = 20, col = "orange")
-)
-with(
-  subset(res, padj < .05 & abs(log2FoldChange) > 1),
-  points(log2FoldChange, -log10(pvalue), pch = 20, col = "green")
-)
-
-# Label points with the textxy function from the calibrate plot
-# with(subset(res, padj<.05 & abs(log2FoldChange)>1),
-#     textxy(log2FoldChange, -log10(pvalue), cex=.8))
+# Create volcano plot
+ggplot(data = resnorm, aes(x = log2_fold_change, y = -log2(pvalue))) +
+  geom_point(mapping = aes(color = base_mean))+
+  scale_color_gradient(limits = c(10, 1088))+
+  xlim(-6, 6)+
+  xlab("log2FoldChange")+
+  ylab("-log2(p-value)")
 
 # reorder res object to show top log2 fold changes
 res <- res[order(res$log2FoldChange), ]
 tail(res, 10)
+
 
 # To find Gene, search transcript ID in est.fa.gz,
 # then NCBI blast search for gene.
