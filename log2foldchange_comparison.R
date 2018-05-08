@@ -10,7 +10,7 @@ library("calibrate")
 # tximport pipeline -------------------------------------------------------
 
 # get tx2gene file using ensembledb
-if(length(Sys.glob("gene_annotation/*.sqlite")) > 0){
+if (length(Sys.glob("gene_annotation/*.sqlite")) > 0){
   # load sqlite file
   EDB <- EnsDb(Sys.glob("gene_annotation/*.sqlite"))
   # Convert DB file to data frame containing transcript info
@@ -42,14 +42,20 @@ dds <- DESeqDataSetFromTximport(txi_tx,
   colData = samples,
   design = ~ condition
 )
-nrow(dds)
-dds <- dds[rowSums(counts(dds)) > 1, ]
-nrow(dds)
 
+# Filter counts with low reads
+nrow(dds)
+dds <- dds[rowSums(counts(dds)) >= 10, ]
+nrow(dds)
 
 dds <- DESeq(dds, fitType = "mean")
 res <- results(dds)
 
+# shrink LFC estimates
+resLFC <- lfcShrink(dds, coef = paste0(resultsNames(dds)[2]), type = "apeglm")
+
+# order results by smallest p-val
+res_ordered <-res[order(res$pvalue), ]
 
 # plotting ----------------------------------------------------------------
 
