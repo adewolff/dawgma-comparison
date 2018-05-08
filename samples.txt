@@ -1,5 +1,9 @@
-Name    condition
+Name    condition	rep
 
-25_quant    A
+25_quant    A	1
 
-28_quant    B
+28_quant    B	1
+
+29_quant	A	2
+
+32_quant	B	2
