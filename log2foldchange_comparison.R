@@ -6,6 +6,7 @@ library("vsn")
 library("dplyr")
 library("ggplot2")
 library("calibrate")
+library("IHW")
 
 # tximport pipeline -------------------------------------------------------
 
@@ -56,6 +57,9 @@ resLFC <- lfcShrink(dds, coef = paste0(resultsNames(dds)[2]), type = "apeglm")
 
 # order results by smallest p-val
 res_ordered <-res[order(res$pvalue), ]
+
+# Perform independent hypothesis weighting
+resIHW <- results(dds, filterFun=ihw)
 
 # plotting ----------------------------------------------------------------
 
