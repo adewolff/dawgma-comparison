@@ -1,3 +1,0 @@
-Name	Length	EffectiveLength	TPM	NumReads condition
-25_quant a a a a A
-28_quant a a a a B

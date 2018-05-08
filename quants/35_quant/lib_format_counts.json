@@ -1,0 +1,21 @@
+{
+    "read_files": "reads/DRR016135_1.fastq.gz, reads/DRR016135_2.fastq.gz",
+    "expected_format": "SF",
+    "compatible_fragment_ratio": 0.5051579565161337,
+    "num_compatible_fragments": 12918510,
+    "num_assigned_fragments": 25573209,
+    "num_consistent_mappings": 23838359,
+    "num_inconsistent_mappings": 23855366,
+    "MSF": 0,
+    "OSF": 0,
+    "ISF": 0,
+    "MSR": 0,
+    "OSR": 0,
+    "ISR": 0,
+    "SF": 23838359,
+    "SR": 23855366,
+    "MU": 0,
+    "OU": 0,
+    "IU": 0,
+    "U": 0
+}

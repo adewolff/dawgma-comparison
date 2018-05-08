@@ -1,0 +1,13 @@
+{
+    "salmon_version": "0.9.1",
+    "index": "athal_index",
+    "libType": "A",
+    "unmatedReads": [
+        "reads/DRR016133_1.fastq.gz",
+        "reads/DRR016133_2.fastq.gz"
+    ],
+    "threads": "8",
+    "gcBias": [],
+    "output": "quants/33_quant",
+    "auxDir": "aux_info"
+}

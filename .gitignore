@@ -1,2 +1,6 @@
-/quantification/reads/
-/quantification/athal_index
+quantification/
+*.Rhistory
+*.sqlite
+*.gtf
+*.gtf.gz
+quants/*/
