@@ -8,6 +8,10 @@ library("ggplot2")
 library("calibrate")
 library("IHW")
 
+# Set Working Directory to source file location.
+# Only works in RStudio
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 # tximport pipeline -------------------------------------------------------
 
 # get tx2gene file using ensembledb
@@ -58,10 +62,10 @@ res <- results(dds)
 resLFC <- lfcShrink(dds, coef = paste0(resultsNames(dds)[2]), type = "apeglm")
 
 # Order results by smallest p-val
-res_ordered <-res[order(res$pvalue), ]
+res_ordered <- res[order(res$pvalue), ]
 
 # Perform independent hypothesis weighting
-resIHW <- results(dds, filterFun=ihw)
+resIHW <- results(dds, filterFun = ihw)
 
 # Put resLFC in form of normal dataframe for ggplot2
 resnorm <- data.frame(gene_id = rownames(resLFC),
@@ -84,10 +88,10 @@ with(res[top_gene, ], {
 
 # Create volcano plot
 ggplot(data = resnorm, aes(x = log2_fold_change, y = -log2(pvalue))) +
-  geom_point(mapping = aes(color = base_mean))+
-  scale_color_gradient(limits = c(10, 1088))+
-  xlim(-6, 6)+
-  xlab("log2FoldChange")+
+  geom_point(mapping = aes(color = base_mean)) +
+  scale_color_gradient(limits = c(10, 1088)) +
+  xlim(-6, 6) +
+  xlab("log2FoldChange") +
   ylab("-log2(p-value)")
 
 # reorder res object to show top log2 fold changes
