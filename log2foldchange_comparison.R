@@ -80,7 +80,7 @@ resnorm <- data.frame(gene_id = rownames(resLFC),
 
 # Create MA plot of shrunken results
 plotMA(resLFC, ylim = c(-12, 12))
-top_gene <- rownames(res)[which.min(res$padj)]
+top_gene <- rownames(res)[which.max(resnorm$log2_fold_change)]
 with(res[top_gene, ], {
   points(baseMean, log2FoldChange, col = "dodgerblue", cex = 2, lwd = 2)
   text(baseMean, log2FoldChange, top_gene, pos = 2, col = "dodgerblue")
@@ -94,9 +94,18 @@ ggplot(data = resnorm, aes(x = log2_fold_change, y = -log2(pvalue))) +
   xlab("log2FoldChange") +
   ylab("-log2(p-value)")
 
+# Create Plotly interactive map
+plot_ly(
+  resnorm, x = ~log2_fold_change, y = ~-log2(pvalue),
+  # Hover text:
+  text = ~paste("gene: ", gene_id),
+  color = ~base_mean
+) %>% 
+  layout(xaxis = list(range = c(-6,6)))
+
 # reorder res object to show top log2 fold changes
-res <- res[order(res$log2FoldChange), ]
-tail(res, 10)
+resnorm <- resnorm[order(resnorm$log2_fold_change), ]
+View(tail(resnorm, 10))
 
 
 # To find Gene, search transcript ID in est.fa.gz,
